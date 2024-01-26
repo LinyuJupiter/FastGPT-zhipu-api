@@ -4,7 +4,6 @@ import json
 import time
 import requests
 from datetime import datetime
-from flask import jsonify
 import httpx
 import jwt
 from fastapi import FastAPI, Request
@@ -17,6 +16,7 @@ app = FastAPI()
 ZHIPU_API_ENDPOINT = 'https://open.bigmodel.cn/api/paas/v4/chat/completions' # 聊天模型
 ZHIPU_API_COGVIEW = 'https://open.bigmodel.cn/api/paas/v4/images/generations' # 绘图模型
 TOKEN_EXPIRY = 600000 # 生成10分钟的授权token
+IP = 'YOUR_SERVER_IP' # 服务器ip地址
 
 
 @app.post("/v1/chat/completions")
@@ -32,7 +32,7 @@ async def predict(request: Request):
     headers = {"Authorization": generate_token(authorization, TOKEN_EXPIRY)}
 
     # 处理请求参数
-    data = process_request_data.process_request_data(data)
+    data = process_request_data.process_request_data(data, IP)
 
     # 异步转发请求并获取响应
     async with httpx.AsyncClient() as client:
