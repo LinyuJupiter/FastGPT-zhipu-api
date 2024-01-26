@@ -66,7 +66,7 @@ async def generate(request: Request):
         current_time = datetime.now()
         # 格式化时间字符串
         formatted_time = current_time.strftime("%Y.%m.%d-%H:%M:%S : ")
-        print(current_time, res)
+        print(formatted_time, res)
         # 直接返回字典，FastAPI会自动将其转换为JSON响应
         return res
     except Exception as e:
